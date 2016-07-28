@@ -1,7 +1,11 @@
-<StackLayout>
-    <Label text="Tap the button" class="title"></Label>
-    
-    <Button text="TAP" (tap)="onTap()"></Button>
-
-    <Label [text]="message" class="message" textWrap="true"></Label>
-</StackLayout>
+<GridLayout rows="auto, *">
+    <RadListView row="1" [items]="dataItems">
+        <template listItemTemplate let-item="item">
+            <StackLayout orientation="vertical">
+            	<Label text="Tap the button" class="title"></Label>
+                <Label class="nameLabel" [text]="item.name"></Label>
+                <Label class="descriptionLabel" [text]="item.description"></Label>
+            </StackLayout>
+        </template>
+    </RadListView>
+</GridLayout>
