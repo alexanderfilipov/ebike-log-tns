@@ -1,4 +1,5 @@
 import {Component} from "@angular/core";
+import {Router} from "@angular/router";
 import oa = require("data/observable-array");
 
 @Component({
@@ -8,7 +9,7 @@ import oa = require("data/observable-array");
 export class AppComponent {
     private _dataItems: oa.ObservableArray<DataItem>;
 
-    constructor() { //private _dataItemService: DataItemService) {
+    constructor(private _router: Router) { //private _dataItemService: DataItemService) {
         console.log("constructor called");
     }
 
@@ -17,12 +18,18 @@ export class AppComponent {
     }
 
     ngOnInit() {
+
         //this._dataItems = new ObservableArray(this._dataItemService.getDataItems());
         console.log("on init");
         this._dataItems = new oa.ObservableArray<DataItem>();
         for (var i = 0; i < 10; i++) {
             this._dataItems.push(new DataItem(i, "Item " + i, "This is item description."));
         }
+    }
+
+    showLogin() {
+        this._router.navigate(["/login"])
+        console.log("login opened");
     }
 }
 

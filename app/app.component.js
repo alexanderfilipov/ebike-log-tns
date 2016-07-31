@@ -1,8 +1,10 @@
 "use strict";
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
 var oa = require("data/observable-array");
 var AppComponent = (function () {
-    function AppComponent() {
+    function AppComponent(_router) {
+        this._router = _router;
         console.log("constructor called");
     }
     Object.defineProperty(AppComponent.prototype, "dataItems", {
@@ -20,12 +22,16 @@ var AppComponent = (function () {
             this._dataItems.push(new DataItem(i, "Item " + i, "This is item description."));
         }
     };
+    AppComponent.prototype.showLogin = function () {
+        this._router.navigate(["/login"]);
+        console.log("login opened");
+    };
     AppComponent = __decorate([
         core_1.Component({
             selector: "my-app",
             templateUrl: "app.component.html",
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [router_1.Router])
     ], AppComponent);
     return AppComponent;
 }());
