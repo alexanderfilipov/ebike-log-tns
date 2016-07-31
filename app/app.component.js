@@ -1,23 +1,24 @@
 "use strict";
 var core_1 = require("@angular/core");
+var oa = require("data/observable-array");
 var AppComponent = (function () {
     function AppComponent() {
-        this.counter = 16;
+        console.log("constructor called");
     }
-    Object.defineProperty(AppComponent.prototype, "message", {
+    Object.defineProperty(AppComponent.prototype, "dataItems", {
         get: function () {
-            if (this.counter > 0) {
-                return this.counter + " taps left";
-            }
-            else {
-                return "Hoorraaay! \nYou are ready to start building!";
-            }
+            return this._dataItems;
         },
         enumerable: true,
         configurable: true
     });
-    AppComponent.prototype.onTap = function () {
-        this.counter--;
+    AppComponent.prototype.ngOnInit = function () {
+        //this._dataItems = new ObservableArray(this._dataItemService.getDataItems());
+        console.log("on init");
+        this._dataItems = new oa.ObservableArray();
+        for (var i = 0; i < 10; i++) {
+            this._dataItems.push(new DataItem(i, "Item " + i, "This is item description."));
+        }
     };
     AppComponent = __decorate([
         core_1.Component({
@@ -29,4 +30,13 @@ var AppComponent = (function () {
     return AppComponent;
 }());
 exports.AppComponent = AppComponent;
+var DataItem = (function () {
+    function DataItem(id, name, description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+    return DataItem;
+}());
+exports.DataItem = DataItem;
 //# sourceMappingURL=app.component.js.map
