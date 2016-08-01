@@ -1,5 +1,5 @@
 <GridLayout rows="auto, *">
-	<Button text="Login" (tap)="showLogin" ></Button>
+	<Button text="Login" (tap)="showLogin()" ></Button>
 
     <RadListView row="1" [items]="dataItems">
         <template listItemTemplate let-item="item">
@@ -10,4 +10,3 @@
         </template>
     </RadListView>
 </GridLayout>
-<router-outlet></router-outlet>

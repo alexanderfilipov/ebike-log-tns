@@ -1,21 +1,10 @@
 import {Component} from "@angular/core";
+import {ROUTER_DIRECTIVES} from '@angular/router';
+import {NS_ROUTER_DIRECTIVES, NS_ROUTER_PROVIDERS} from "nativescript-angular/router";
 
 @Component({
-    selector: "my-app",
-    templateUrl: "app.component.html",
+  selector: "my-app",
+  directives: [NS_ROUTER_DIRECTIVES],
+  template: "<page-router-outlet></page-router-outlet>"
 })
-export class AppComponent {
-    public counter: number = 16;
-
-    public get message(): string {
-        if (this.counter > 0) {
-            return this.counter + " taps left";
-        } else {
-            return "Hoorraaay! \nYou are ready to start building!";
-        }
-    }
-    
-    public onTap() {
-        this.counter--;
-    }
-}
+export class AppComponent {}

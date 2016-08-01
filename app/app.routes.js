@@ -1,10 +1,10 @@
 "use strict";
 var router_1 = require("nativescript-angular/router");
-var app_component_1 = require("./app.component");
 var login_1 = require("./pages/login/login");
+var logs_component_1 = require("./pages/logs/logs.component");
 //import {AuthGuard} from "./auth.guard";
 exports.routes = [
-    { path: "", component: app_component_1.AppComponent },
+    { path: "", component: logs_component_1.LogsComponent },
     { path: "login", component: login_1.LoginComponent }
 ];
 exports.APP_ROUTER_PROVIDERS = [

@@ -1,46 +1,10 @@
 import {Component} from "@angular/core";
-import {Router} from "@angular/router";
-import oa = require("data/observable-array");
+import {ROUTER_DIRECTIVES} from '@angular/router';
+import {NS_ROUTER_DIRECTIVES, NS_ROUTER_PROVIDERS} from "nativescript-angular/router";
 
 @Component({
-    selector: "my-app",
-    templateUrl: "app.component.html",
+  selector: "my-app",
+  directives: [NS_ROUTER_DIRECTIVES],
+  template: "<page-router-outlet></page-router-outlet>"
 })
-export class AppComponent {
-    private _dataItems: oa.ObservableArray<DataItem>;
-
-    constructor(private _router: Router) { //private _dataItemService: DataItemService) {
-        console.log("constructor called");
-    }
-
-    get dataItems(): oa.ObservableArray<DataItem> {
-        return this._dataItems;
-    }
-
-    ngOnInit() {
-
-        //this._dataItems = new ObservableArray(this._dataItemService.getDataItems());
-        console.log("on init");
-        this._dataItems = new oa.ObservableArray<DataItem>();
-        for (var i = 0; i < 10; i++) {
-            this._dataItems.push(new DataItem(i, "Item " + i, "This is item description."));
-        }
-    }
-
-    showLogin() {
-        this._router.navigate(["/login"])
-        console.log("login opened");
-    }
-}
-
-export class DataItem {
-    public id: number;
-    public name;
-    public description;
-
-    constructor(id: number, name: string, description: string) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
-}
+export class AppComponent {}
