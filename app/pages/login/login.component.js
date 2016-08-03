@@ -16,4 +16,4 @@ var LoginComponent = (function () {
     return LoginComponent;
 }());
 exports.LoginComponent = LoginComponent;
-//# sourceMappingURL=login.js.map
+//# sourceMappingURL=login.component.js.map

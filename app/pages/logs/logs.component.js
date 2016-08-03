@@ -29,7 +29,7 @@ var LogsComponent = (function () {
     LogsComponent = __decorate([
         core_1.Component({
             selector: "my-app",
-            templateUrl: "pages/logs/logs.component.html",
+            templateUrl: "pages/logs/logs.html",
         }), 
         __metadata('design:paramtypes', [router_1.Router])
     ], LogsComponent);

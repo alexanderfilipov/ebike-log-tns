@@ -1,6 +1,6 @@
 import {RouterConfig} from "@angular/router";
 import {nsProvideRouter} from "nativescript-angular/router"
-import {LoginComponent} from "./pages/login/login";
+import {LoginComponent} from "./pages/login/login.component";
 import {LogsComponent} from "./pages/logs/logs.component";
 //import {AuthGuard} from "./auth.guard";
 

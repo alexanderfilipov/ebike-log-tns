@@ -4,7 +4,7 @@ import oa = require("data/observable-array");
 
 @Component({
     selector: "my-app",
-    templateUrl: "pages/logs/logs.component.html",
+    templateUrl: "pages/logs/logs.html",
 })
 export class LogsComponent {
     private _dataItems: oa.ObservableArray<DataItem>;
