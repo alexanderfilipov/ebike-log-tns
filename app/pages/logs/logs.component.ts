@@ -1,46 +1,31 @@
 import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 import oa = require("data/observable-array");
+import {BackendService} from "../../services/backend.service";
+import {Log} from "../../model/log"
 
 @Component({
     selector: "my-app",
+    providers: [BackendService],
     templateUrl: "pages/logs/logs.html",
 })
 export class LogsComponent {
-    private _dataItems: oa.ObservableArray<DataItem>;
+    private _dataItems: oa.ObservableArray<Log>;
 
-    constructor(private _router: Router) { //private _dataItemService: DataItemService) {
-        console.log("constructor called");
+    constructor(private router: Router, private backend: BackendService) {
     }
 
-    get dataItems(): oa.ObservableArray<DataItem> {
+    get dataItems(): oa.ObservableArray<Log> {
         return this._dataItems;
     }
 
     ngOnInit() {
-
-        //this._dataItems = new ObservableArray(this._dataItemService.getDataItems());
         console.log("on init");
-        this._dataItems = new oa.ObservableArray<DataItem>();
-        for (var i = 0; i < 10; i++) {
-            this._dataItems.push(new DataItem(i, "Item " + i, "This is item description."));
-        }
+        this.backend.getCharges().then((logs) => { this._dataItems = logs} );
     }
 
     showLogin() {
-        this._router.navigate(["/login"])
+        this.router.navigate(["/login"])
         console.log("login opened");
-    }
-}
-
-export class DataItem {
-    public id: number;
-    public name;
-    public description;
-
-    constructor(id: number, name: string, description: string) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
     }
 }

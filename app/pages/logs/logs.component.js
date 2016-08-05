@@ -1,11 +1,11 @@
 "use strict";
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var oa = require("data/observable-array");
+var backend_service_1 = require("../../services/backend.service");
 var LogsComponent = (function () {
-    function LogsComponent(_router) {
-        this._router = _router;
-        console.log("constructor called");
+    function LogsComponent(router, backend) {
+        this.router = router;
+        this.backend = backend;
     }
     Object.defineProperty(LogsComponent.prototype, "dataItems", {
         get: function () {
@@ -15,34 +15,23 @@ var LogsComponent = (function () {
         configurable: true
     });
     LogsComponent.prototype.ngOnInit = function () {
-        //this._dataItems = new ObservableArray(this._dataItemService.getDataItems());
+        var _this = this;
         console.log("on init");
-        this._dataItems = new oa.ObservableArray();
-        for (var i = 0; i < 10; i++) {
-            this._dataItems.push(new DataItem(i, "Item " + i, "This is item description."));
-        }
+        this.backend.getCharges().then(function (logs) { _this._dataItems = logs; });
     };
     LogsComponent.prototype.showLogin = function () {
-        this._router.navigate(["/login"]);
+        this.router.navigate(["/login"]);
         console.log("login opened");
     };
     LogsComponent = __decorate([
         core_1.Component({
             selector: "my-app",
+            providers: [backend_service_1.BackendService],
             templateUrl: "pages/logs/logs.html",
         }), 
-        __metadata('design:paramtypes', [router_1.Router])
+        __metadata('design:paramtypes', [router_1.Router, backend_service_1.BackendService])
     ], LogsComponent);
     return LogsComponent;
 }());
 exports.LogsComponent = LogsComponent;
-var DataItem = (function () {
-    function DataItem(id, name, description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
-    return DataItem;
-}());
-exports.DataItem = DataItem;
 //# sourceMappingURL=logs.component.js.map

@@ -4,8 +4,8 @@
     <RadListView row="1" [items]="dataItems">
         <template listItemTemplate let-item="item">
             <StackLayout orientation="vertical">
-                <Label class="nameLabel" [text]="item.name"  class="title"></Label>
-                <Label class="descriptionLabel" [text]="item.description"></Label>
+                <Label class="nameLabel" [text]="item.cycleNumber"  class="title"></Label>
+                <Label class="descriptionLabel" [text]="item.odometer"></Label>
             </StackLayout>
         </template>
     </RadListView>

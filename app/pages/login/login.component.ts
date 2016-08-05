@@ -1,23 +1,23 @@
 import {Component} from "@angular/core";
-import oa = require("data/observable-array");
+import {Router} from "@angular/router";
 import {BackendService} from "../../services/backend.service";
 
 @Component({
     selector: "my-app",
+    providers: [BackendService],
     templateUrl: "pages/login/login.html",
 })
 export class LoginComponent {
   username='';
   password='';
 
-  constructor(private backend: BackendService){
-
+  constructor(private router: Router, private backend: BackendService){
   }
 
   onLogin() {
     this.backend.login(this.username, this.password)
-    .then((data) => {
-        alert(JSON.stringify(data));
+    .then(() => {
+        this.router.navigate(["/"]);
       })
       .catch((error) => {
         alert(JSON.stringify(error));
