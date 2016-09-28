@@ -7,21 +7,8 @@ var LogsComponent = (function () {
         this.router = router;
         this.backend = backend;
     }
-    Object.defineProperty(LogsComponent.prototype, "dataItems", {
-        get: function () {
-            return this._dataItems;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    LogsComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        console.log("on init");
-        this.backend.getCharges().then(function (logs) {
-            console.log('yes!');
-            _this._dataItems = logs;
-            console.log(_this._dataItems.toString());
-        });
+    LogsComponent.prototype.load = function () {
+        this.backend.getCharges();
     };
     LogsComponent.prototype.showLogin = function () {
         this.router.navigate(["/login"]);

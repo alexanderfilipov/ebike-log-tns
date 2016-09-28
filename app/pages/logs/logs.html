@@ -1,14 +1,32 @@
-<GridLayout rows="auto, auto, *">
-	<Button text="Login" (tap)="showLogin()" ></Button>
-
-	<Button row="1" text="Add" (tap)="showAdd()" ></Button>
-
-    <RadListView row="2" [items]="dataItems">
-        <template listItemTemplate let-item="item">
-            <StackLayout orientation="vertical">
-                <Label class="nameLabel" [text]="item.CycleNumber"  class="title"></Label>
-                <Label class="descriptionLabel" [text]="item.Odometer"></Label>
-            </StackLayout>
+<GridLayout rows="auto, *">
+    <StackLayout orientation="horizontal">
+        <Button text="Login" (tap)="showLogin()" ></Button>
+        <Button text="Add" (tap)="showAdd()" ></Button>
+    </StackLayout>
+    <ListView row="1" 
+        [items]="backend.charges | async" 
+        (loaded)="load()">
+        <template let-item="item">
+            <GridLayout rows="auto, auto" padding="10 15">
+                <StackLayout orientation="horizontal" horizontalAlignment="left">
+                    <Label [text]="item.CycleNumber"></Label>
+                    <Label text=". @ "></Label>
+                    <Label [text]="item.Odometer"></Label>
+                    <Label text=" km"></Label>
+                </StackLayout>
+                <StackLayout orientation="horizontal" horizontalAlignment="right">
+                    <Label text="+ "></Label>
+                    <Label [text]="item.TripDistance"></Label>
+                    <Label text=" km"></Label>
+                </StackLayout>
+                
+                <Label row="1" [text]="item.ChargedAt.toLocaleDateString()" horizontalAlignment="left"></Label>
+                <StackLayout row="1" orientation="horizontal" horizontalAlignment="right">
+                    <Label text="+ "></Label>
+                    <Label [text]="item.TripTime"></Label>
+                    <Label text=" days"></Label>
+                </StackLayout>
+            </GridLayout>
         </template>
-    </RadListView>
+    </ListView>
 </GridLayout>

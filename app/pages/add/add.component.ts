@@ -10,17 +10,20 @@ import {Log} from "../../model/log"
   templateUrl: "pages/add/add.html",
 })
 export class AddComponent {
+  date = new Date();
   odometer = 0;
+  wasEmpty = false;
+  fullyCharged = true;
 
   constructor(private router: Router, private backend: BackendService) {
   }
 
   onSave() {
     var log = new Log();
+    log.ChargedAt = this.date;
     log.Odometer = this.odometer;
-    log.FullyCharged = true;
-    log.WasEmpty = false;
-    log.ChargedAt = new Date();
+    log.WasEmpty = this.wasEmpty;
+    log.FullyCharged = this.fullyCharged;
 
     console.log(JSON.stringify(log));
 

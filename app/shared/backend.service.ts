@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
+import { Injectable, NgZone } from "@angular/core";
+import { BehaviorSubject } from "rxjs/Rx";
 import { getString, setString } from "application-settings";
 import { Log } from "../model/log"
-import oa = require("data/observable-array");
 
 var Everlive = require('./../everlive.all.min');
 
@@ -12,6 +12,13 @@ export class BackendService {
     apiKey: "enf8m56ytnvo8sbn",
     offlineStorage: true
   });
+
+  charges: BehaviorSubject<Array<Log>> = new BehaviorSubject([]);
+
+  private logs: Array<Log> = [];
+
+  constructor(private zone: NgZone) {
+  }
 
   static get token():string {
     return getString("token");
@@ -38,23 +45,13 @@ export class BackendService {
 
   getCharges() {
     return BackendService.el.data("charges")
-      .withHeaders({ "X-Everlive-Sort": JSON.stringify({ CreatedAt: -1 }), "X-Everlive-Take": 5 })
+      .withHeaders({ "X-Everlive-Sort": JSON.stringify({ CreatedAt: -1 }) }) //, "X-Everlive-Take": 5
       .get()
       .then((data) => {
-        var logs = new oa.ObservableArray<Log>();
+        this.logs = data.result;
 
-        data.result.forEach((item) => {
-          var log = new Log();
-          log.Id = item.Id
-          log.CycleNumber = item.CycleNumber
-          log.Odometer = item.Odometer;
-          logs.push(log);
-        });
-
-        //console.log(logs.push(data.result));
-
-        //console.log(logs.toString());
-        return Promise.resolve(logs);
+        this.publishUpdates();
+        return Promise.resolve(this.logs);
       })
       .catch(this.handleErrors);
   }
@@ -70,5 +67,9 @@ export class BackendService {
   handleErrors(error) {
     console.log(JSON.stringify(error));
     return Promise.reject(error.message);
+  }
+
+  private publishUpdates() {
+    this.charges.next([...this.logs]);
   }
 }

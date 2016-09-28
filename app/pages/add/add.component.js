@@ -7,15 +7,18 @@ var AddComponent = (function () {
     function AddComponent(router, backend) {
         this.router = router;
         this.backend = backend;
+        this.date = new Date();
         this.odometer = 0;
+        this.wasEmpty = false;
+        this.fullyCharged = true;
     }
     AddComponent.prototype.onSave = function () {
         var _this = this;
         var log = new log_1.Log();
+        log.ChargedAt = this.date;
         log.Odometer = this.odometer;
-        log.FullyCharged = true;
-        log.WasEmpty = false;
-        log.ChargedAt = new Date();
+        log.WasEmpty = this.wasEmpty;
+        log.FullyCharged = this.fullyCharged;
         console.log(JSON.stringify(log));
         this.backend.createCharge(log)
             .then(function () {

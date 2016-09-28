@@ -1,11 +1,13 @@
 "use strict";
 var core_1 = require("@angular/core");
+var Rx_1 = require("rxjs/Rx");
 var application_settings_1 = require("application-settings");
-var log_1 = require("../model/log");
-var oa = require("data/observable-array");
 var Everlive = require('./../everlive.all.min');
 var BackendService = (function () {
-    function BackendService() {
+    function BackendService(zone) {
+        this.zone = zone;
+        this.charges = new Rx_1.BehaviorSubject([]);
+        this.logs = [];
     }
     Object.defineProperty(BackendService, "token", {
         get: function () {
@@ -30,21 +32,14 @@ var BackendService = (function () {
         }).catch(this.handleErrors);
     };
     BackendService.prototype.getCharges = function () {
+        var _this = this;
         return BackendService.el.data("charges")
-            .withHeaders({ "X-Everlive-Sort": JSON.stringify({ CreatedAt: -1 }), "X-Everlive-Take": 5 })
+            .withHeaders({ "X-Everlive-Sort": JSON.stringify({ CreatedAt: -1 }) }) //, "X-Everlive-Take": 5
             .get()
             .then(function (data) {
-            var logs = new oa.ObservableArray();
-            data.result.forEach(function (item) {
-                var log = new log_1.Log();
-                log.Id = item.Id;
-                log.CycleNumber = item.CycleNumber;
-                log.Odometer = item.Odometer;
-                logs.push(log);
-            });
-            //console.log(logs.push(data.result));
-            //console.log(logs.toString());
-            return Promise.resolve(logs);
+            _this.logs = data.result;
+            _this.publishUpdates();
+            return Promise.resolve(_this.logs);
         })
             .catch(this.handleErrors);
     };
@@ -59,13 +54,16 @@ var BackendService = (function () {
         console.log(JSON.stringify(error));
         return Promise.reject(error.message);
     };
+    BackendService.prototype.publishUpdates = function () {
+        this.charges.next(this.logs.slice());
+    };
     BackendService.el = new Everlive({
         apiKey: "enf8m56ytnvo8sbn",
         offlineStorage: true
     });
     BackendService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [core_1.NgZone])
     ], BackendService);
     return BackendService;
 }());
