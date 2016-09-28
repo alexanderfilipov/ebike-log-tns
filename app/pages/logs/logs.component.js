@@ -1,7 +1,7 @@
 "use strict";
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var backend_service_1 = require("../../services/backend.service");
+var backend_service_1 = require("../../shared/backend.service");
 var LogsComponent = (function () {
     function LogsComponent(router, backend) {
         this.router = router;
@@ -17,11 +17,19 @@ var LogsComponent = (function () {
     LogsComponent.prototype.ngOnInit = function () {
         var _this = this;
         console.log("on init");
-        this.backend.getCharges().then(function (logs) { _this._dataItems = logs; });
+        this.backend.getCharges().then(function (logs) {
+            console.log('yes!');
+            _this._dataItems = logs;
+            console.log(_this._dataItems.toString());
+        });
     };
     LogsComponent.prototype.showLogin = function () {
         this.router.navigate(["/login"]);
         console.log("login opened");
+    };
+    LogsComponent.prototype.showAdd = function () {
+        this.router.navigate(["/add"]);
+        console.log("add opened");
     };
     LogsComponent = __decorate([
         core_1.Component({

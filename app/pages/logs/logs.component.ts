@@ -1,8 +1,8 @@
-import {Component} from "@angular/core";
-import {Router} from "@angular/router";
+import { Component } from "@angular/core";
+import { Router } from "@angular/router";
+import { BackendService } from "../../shared/backend.service";
+import { Log } from "../../model/log"
 import oa = require("data/observable-array");
-import {BackendService} from "../../services/backend.service";
-import {Log} from "../../model/log"
 
 @Component({
     selector: "my-app",
@@ -21,11 +21,20 @@ export class LogsComponent {
 
     ngOnInit() {
         console.log("on init");
-        this.backend.getCharges().then((logs) => { this._dataItems = logs} );
+        this.backend.getCharges().then((logs) => {
+            console.log('yes!'); 
+            this._dataItems = logs; 
+            console.log(this._dataItems.toString());
+        });
     }
 
     showLogin() {
         this.router.navigate(["/login"])
         console.log("login opened");
+    }
+
+    showAdd() {
+        this.router.navigate(["/add"])
+        console.log("add opened");
     }
 }

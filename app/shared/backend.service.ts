@@ -1,7 +1,8 @@
-import {Injectable} from "@angular/core";
-import {getString, setString} from "application-settings";
-import {Log} from "../model/log"
+import { Injectable } from "@angular/core";
+import { getString, setString } from "application-settings";
+import { Log } from "../model/log"
 import oa = require("data/observable-array");
+
 var Everlive = require('./../everlive.all.min');
 
 @Injectable()
@@ -37,20 +38,31 @@ export class BackendService {
 
   getCharges() {
     return BackendService.el.data("charges")
-      .withHeaders({ "X-Everlive-Sort": JSON.stringify({ CreatedAt: -1 }) })
+      .withHeaders({ "X-Everlive-Sort": JSON.stringify({ CreatedAt: -1 }), "X-Everlive-Take": 5 })
       .get()
       .then((data) => {
         var logs = new oa.ObservableArray<Log>();
 
         data.result.forEach((item) => {
           var log = new Log();
-          log.id = item.Id
-          log.cycleNumber = item.CycleNumber
-          log.odometer = item.Odometer;
+          log.Id = item.Id
+          log.CycleNumber = item.CycleNumber
+          log.Odometer = item.Odometer;
           logs.push(log);
         });
 
+        //console.log(logs.push(data.result));
+
+        //console.log(logs.toString());
         return Promise.resolve(logs);
+      })
+      .catch(this.handleErrors);
+  }
+
+  createCharge(log: Log){
+    return BackendService.el.data('charges').create(log)
+    .then((data) => {
+        return Promise.resolve(data);
       })
       .catch(this.handleErrors);
   }

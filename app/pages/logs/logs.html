@@ -1,11 +1,13 @@
-<GridLayout rows="auto, *">
+<GridLayout rows="auto, auto, *">
 	<Button text="Login" (tap)="showLogin()" ></Button>
 
-    <RadListView row="1" [items]="dataItems">
+	<Button row="1" text="Add" (tap)="showAdd()" ></Button>
+
+    <RadListView row="2" [items]="dataItems">
         <template listItemTemplate let-item="item">
             <StackLayout orientation="vertical">
-                <Label class="nameLabel" [text]="item.cycleNumber"  class="title"></Label>
-                <Label class="descriptionLabel" [text]="item.odometer"></Label>
+                <Label class="nameLabel" [text]="item.CycleNumber"  class="title"></Label>
+                <Label class="descriptionLabel" [text]="item.Odometer"></Label>
             </StackLayout>
         </template>
     </RadListView>

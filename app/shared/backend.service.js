@@ -31,19 +31,27 @@ var BackendService = (function () {
     };
     BackendService.prototype.getCharges = function () {
         return BackendService.el.data("charges")
-            .withHeaders({ "X-Everlive-Sort": JSON.stringify({ CreatedAt: -1 }) })
+            .withHeaders({ "X-Everlive-Sort": JSON.stringify({ CreatedAt: -1 }), "X-Everlive-Take": 5 })
             .get()
             .then(function (data) {
             var logs = new oa.ObservableArray();
-            console.log(JSON.stringify(data));
             data.result.forEach(function (item) {
                 var log = new log_1.Log();
-                log.id = item.Id;
-                log.cycleNumber = item.CycleNumber;
-                log.odometer = item.Odometer;
+                log.Id = item.Id;
+                log.CycleNumber = item.CycleNumber;
+                log.Odometer = item.Odometer;
                 logs.push(log);
             });
+            //console.log(logs.push(data.result));
+            //console.log(logs.toString());
             return Promise.resolve(logs);
+        })
+            .catch(this.handleErrors);
+    };
+    BackendService.prototype.createCharge = function (log) {
+        return BackendService.el.data('charges').create(log)
+            .then(function (data) {
+            return Promise.resolve(data);
         })
             .catch(this.handleErrors);
     };

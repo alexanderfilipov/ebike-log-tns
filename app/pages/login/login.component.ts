@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {Router} from "@angular/router";
-import {BackendService} from "../../services/backend.service";
+import {BackendService} from "../../shared/backend.service";
 
 @Component({
     selector: "my-app",
@@ -21,6 +21,6 @@ export class LoginComponent {
       })
       .catch((error) => {
         alert(JSON.stringify(error));
-	});
+    });
   }
 }

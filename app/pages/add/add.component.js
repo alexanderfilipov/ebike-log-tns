@@ -2,16 +2,22 @@
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var backend_service_1 = require("../../shared/backend.service");
-var LoginComponent = (function () {
-    function LoginComponent(router, backend) {
+var log_1 = require("../../model/log");
+var AddComponent = (function () {
+    function AddComponent(router, backend) {
         this.router = router;
         this.backend = backend;
-        this.username = 'alf';
-        this.password = '12345';
+        this.odometer = 0;
     }
-    LoginComponent.prototype.onLogin = function () {
+    AddComponent.prototype.onSave = function () {
         var _this = this;
-        this.backend.login(this.username, this.password)
+        var log = new log_1.Log();
+        log.Odometer = this.odometer;
+        log.FullyCharged = true;
+        log.WasEmpty = false;
+        log.ChargedAt = new Date();
+        console.log(JSON.stringify(log));
+        this.backend.createCharge(log)
             .then(function () {
             _this.router.navigate(["/"]);
         })
@@ -19,15 +25,15 @@ var LoginComponent = (function () {
             alert(JSON.stringify(error));
         });
     };
-    LoginComponent = __decorate([
+    AddComponent = __decorate([
         core_1.Component({
             selector: "my-app",
             providers: [backend_service_1.BackendService],
-            templateUrl: "pages/login/login.html",
+            templateUrl: "pages/add/add.html",
         }), 
         __metadata('design:paramtypes', [router_1.Router, backend_service_1.BackendService])
-    ], LoginComponent);
-    return LoginComponent;
+    ], AddComponent);
+    return AddComponent;
 }());
-exports.LoginComponent = LoginComponent;
-//# sourceMappingURL=login.component.js.map
+exports.AddComponent = AddComponent;
+//# sourceMappingURL=add.component.js.map
