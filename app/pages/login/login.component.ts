@@ -8,8 +8,8 @@ import {BackendService} from "../../shared/backend.service";
     templateUrl: "pages/login/login.html",
 })
 export class LoginComponent {
-  username='alf';
-  password='12345';
+  username='';
+  password='';
 
   constructor(private router: Router, private backend: BackendService){
   }
