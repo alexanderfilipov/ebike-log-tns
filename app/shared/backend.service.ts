@@ -18,7 +18,7 @@ export class BackendService {
   private logs: Array<Log> = [];
 
   constructor(private zone: NgZone) {
-  }
+  }k
 
   static get token():string {
     return getString("token");

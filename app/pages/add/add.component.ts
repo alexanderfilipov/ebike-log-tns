@@ -1,8 +1,8 @@
-import {Component} from "@angular/core";
-import {Router} from "@angular/router";
-import oa = require("data/observable-array");
-import {BackendService} from "../../shared/backend.service";
-import {Log} from "../../model/log"
+import { Component } from "@angular/core";
+import { BehaviorSubject } from "rxjs/Rx";
+import { Router } from "@angular/router";
+import { BackendService } from "../../shared/backend.service";
+import { Log } from "../../model/log"
 
 @Component({
   selector: "my-app",
@@ -10,29 +10,22 @@ import {Log} from "../../model/log"
   templateUrl: "pages/add/add.html",
 })
 export class AddComponent {
-  date = new Date();
-  odometer = 0;
-  wasEmpty = false;
-  fullyCharged = true;
+  log: Log = new Log();
 
   constructor(private router: Router, private backend: BackendService) {
+    //this.log.FullyCharged = true;
   }
 
   onSave() {
-    var log = new Log();
-    log.ChargedAt = this.date;
-    log.Odometer = this.odometer;
-    log.WasEmpty = this.wasEmpty;
-    log.FullyCharged = this.fullyCharged;
+    console.log(JSON.stringify(this.log));
 
-    console.log(JSON.stringify(log));
-
-    this.backend.createCharge(log)
+    /*this.backend.createCharge(log)
     .then(() => {
         this.router.navigate(["/"]);
       })
       .catch((error) => {
         alert(JSON.stringify(error));
     });
+    */
   }
 }

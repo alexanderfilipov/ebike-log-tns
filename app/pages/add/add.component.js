@@ -7,26 +7,19 @@ var AddComponent = (function () {
     function AddComponent(router, backend) {
         this.router = router;
         this.backend = backend;
-        this.date = new Date();
-        this.odometer = 0;
-        this.wasEmpty = false;
-        this.fullyCharged = true;
+        this.log = new log_1.Log();
+        //this.log.FullyCharged = true;
     }
     AddComponent.prototype.onSave = function () {
-        var _this = this;
-        var log = new log_1.Log();
-        log.ChargedAt = this.date;
-        log.Odometer = this.odometer;
-        log.WasEmpty = this.wasEmpty;
-        log.FullyCharged = this.fullyCharged;
-        console.log(JSON.stringify(log));
-        this.backend.createCharge(log)
-            .then(function () {
-            _this.router.navigate(["/"]);
-        })
-            .catch(function (error) {
+        console.log(JSON.stringify(this.log));
+        /*this.backend.createCharge(log)
+        .then(() => {
+            this.router.navigate(["/"]);
+          })
+          .catch((error) => {
             alert(JSON.stringify(error));
         });
+        */
     };
     AddComponent = __decorate([
         core_1.Component({

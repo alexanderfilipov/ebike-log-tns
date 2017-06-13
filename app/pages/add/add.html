@@ -1,16 +1,16 @@
 <StackLayout>
 	<GridLayout rows="auto, auto, auto, auto" columns="auto, *">
 		<Label text="Date"></Label>
-		<DatePicker column="1" [(ngModel)]="date" ></DatePicker>
+		<DatePicker column="1" [(ngModel)]="log.ChargedAt" ></DatePicker>
 
 		<Label row="1" text="Odometer"></Label>
-		<TextField row="1" column="1" [(ngModel)]="odometer" autocorrect="false" autocapitalizationType="none"></TextField>
+		<TextField row="1" column="1" [(ngModel)]="log.Odometer" autocorrect="false" autocapitalizationType="none"></TextField>
 
 		<Label row="2" text="Battery was empty"></Label>
-		<Switch row="2" column="1" [checked]="wasEmpty"></Switch>
+		<Switch row="2" column="1" [(ngModel)]="log.WasEmpty"></Switch>
 
 		<Label row="3" text="Fully charged"></Label>
-		<Switch row="3" column="1" [checked]="fullyCharged"></Switch>
+		<Switch row="3" column="1" [(ngModel)]="log.FullyCharged"></Switch>
 	</GridLayout>
 	<Button text="Save" (tap)="onSave()"></Button>
 </StackLayout>
