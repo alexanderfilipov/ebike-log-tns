@@ -13,19 +13,28 @@ export class AddComponent {
   log: Log = new Log();
 
   constructor(private router: Router, private backend: BackendService) {
-    //this.log.FullyCharged = true;
+    this.log.WasEmpty = false;
+    this.log.FullyCharged = true;
   }
 
   onSave() {
-    console.log(JSON.stringify(this.log));
+    if(!this.log.Odometer){
+      alert("Odometer is required!");
+      return;
+    }
 
-    /*this.backend.createCharge(log)
+    //Fix from string to number
+    this.log.Odometer = parseInt(this.log.Odometer.toString());
+    
+    console.log("Saving new log: " + JSON.stringify(this.log));
+
+    this.backend.createCharge(this.log)
     .then(() => {
         this.router.navigate(["/"]);
       })
       .catch((error) => {
         alert(JSON.stringify(error));
+        return;
     });
-    */
   }
 }
