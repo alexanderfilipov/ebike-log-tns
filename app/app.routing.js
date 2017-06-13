@@ -1,10 +1,11 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var login_component_1 = require("./pages/login/login.component");
 var logs_component_1 = require("./pages/logs/logs.component");
 var add_component_1 = require("./pages/add/add.component");
-exports.appRoutes = [
+exports.AppRoutingModule = [
     { path: "", component: logs_component_1.LogsComponent },
     { path: "login", component: login_component_1.LoginComponent },
     { path: "add", component: add_component_1.AddComponent }
 ];
-//# sourceMappingURL=app.routing.js.map
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYXBwLnJvdXRpbmcuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJhcHAucm91dGluZy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLGlFQUE2RDtBQUM3RCw4REFBMEQ7QUFDMUQsMkRBQXVEO0FBRTFDLFFBQUEsZ0JBQWdCLEdBQUc7SUFDOUIsRUFBRSxJQUFJLEVBQUUsRUFBRSxFQUFFLFNBQVMsRUFBRSw4QkFBYSxFQUFFO0lBQ3RDLEVBQUUsSUFBSSxFQUFFLE9BQU8sRUFBRSxTQUFTLEVBQUUsZ0NBQWMsRUFBRTtJQUM1QyxFQUFFLElBQUksRUFBRSxLQUFLLEVBQUUsU0FBUyxFQUFFLDRCQUFZLEVBQUU7Q0FDekMsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7TG9naW5Db21wb25lbnR9IGZyb20gXCIuL3BhZ2VzL2xvZ2luL2xvZ2luLmNvbXBvbmVudFwiO1xuaW1wb3J0IHtMb2dzQ29tcG9uZW50fSBmcm9tIFwiLi9wYWdlcy9sb2dzL2xvZ3MuY29tcG9uZW50XCI7XG5pbXBvcnQge0FkZENvbXBvbmVudH0gZnJvbSBcIi4vcGFnZXMvYWRkL2FkZC5jb21wb25lbnRcIjtcblxuZXhwb3J0IGNvbnN0IEFwcFJvdXRpbmdNb2R1bGUgPSBbXG4gIHsgcGF0aDogXCJcIiwgY29tcG9uZW50OiBMb2dzQ29tcG9uZW50IH0sXG4gIHsgcGF0aDogXCJsb2dpblwiLCBjb21wb25lbnQ6IExvZ2luQ29tcG9uZW50IH0sXG4gIHsgcGF0aDogXCJhZGRcIiwgY29tcG9uZW50OiBBZGRDb21wb25lbnQgfVxuXTtcbiJdfQ==

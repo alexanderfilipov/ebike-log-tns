@@ -1,6 +1,9 @@
 (function() {
 	var __extends_ts = function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+		if (!b.extend) {
+			for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+		}
+
 	    function __() { this.constructor = d; }
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
@@ -90,6 +93,7 @@
 		
 		__extends_ts(Child, Parent);
 		
+		
 		if (Parent.extend)	{
 			Child.__isPrototypeImplementationObject = true;
 			Child.__proto__ = Parent;
@@ -105,9 +109,19 @@
 	    	return extended;
 	    };
 	}
+
+	function Interfaces(interfacesArr) {
+	    return function (target) {
+            if(interfacesArr instanceof Array) {
+                // attach interfaces: [] to the object
+                target.prototype.interfaces = interfacesArr;
+            }
+	    }
+	}
 	
 	global.__native = __native;
 	global.__extends = __extends;
 	global.__decorate = __decorate;
 	global.JavaProxy = JavaProxy;
+	global.Interfaces = Interfaces;
 })()
